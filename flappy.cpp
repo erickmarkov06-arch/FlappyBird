@@ -4,6 +4,7 @@
 #include <ctime>
 #include <cstdlib>
 #include <iostream>
+#include "level.h"
 
 const double gravity = 0.5;
 
@@ -15,6 +16,8 @@ int main()
     InitWindow(screenWidth, screenHight, "FirstWindow");
     Bird bird = Bird(200, 200, 0);
     Pipe pipe = Pipe();
+    Level level = Level();
+    double speed = 3;
 
     int gap = pipe.getGap();
 
@@ -22,7 +25,7 @@ int main()
 
     while (!WindowShouldClose())
     {
-
+        speed = speed * 1.00001;
         if (IsKeyPressed(KEY_SPACE))
         {
             bird.jump();
@@ -31,10 +34,9 @@ int main()
         bird.update(gravity);
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        pipe.drawPipe();
-        pipe.movePipe();
-
-        DrawText(TextFormat("Gap : %d", gap), 200, 200, 20, BLUE);
+        //pipe.update();
+        level.draw();
+        level.move(speed);
         DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, BLUE);
         EndDrawing();
     }
