@@ -15,8 +15,25 @@ void Level::draw(){
         pipes[i].drawPipe();
     }
 }
-void Level::move(int distance){
+void Level::move(double distance){
     for(int i = 0; i < NUMBER_OF_PIPES; i++){
         pipes[i].movePipe(distance);
     }
+}
+void Level::update(double speed){
+        draw();
+        move(speed);
+        int highestX = pipes[0].getX();
+        for(int i = 1; i < NUMBER_OF_PIPES ; i ++){
+            if(pipes[i].getX() > highestX){
+                highestX = pipes[i].getX();
+            }
+        }
+        int newX = (highestX + DISTANCE_BETWEEN_PIPES + PIPE_WIDTH);
+        for(int i = 0; i < NUMBER_OF_PIPES; i++){
+            if(pipes[i].getX() + PIPE_WIDTH < 0){
+                pipes[i].reset(newX);
+            }
+        }
+        
 }

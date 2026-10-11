@@ -29,18 +29,18 @@ void Pipe::drawPipe(){
 void Pipe::topHeightCalc(){
     topHeight = rand() % (((GetScreenHeight() - 100) - gap) + 1) + 50;
 }
-void Pipe::movePipe(int distance){
+void Pipe::movePipe(double distance){
     x = x - distance;
 }
-void Pipe::reset(){
+void Pipe::reset(int newX){
     randomGap();
     topHeightCalc();
-    x = GetScreenWidth();
+    x = newX;
 }
 void Pipe::update(){
     drawPipe();
    // movePipe();
 }
-int Pipe::getX(){
+double Pipe::getX(){
     return x;
 }

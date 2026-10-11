@@ -25,7 +25,10 @@ int main()
 
     while (!WindowShouldClose())
     {
-        speed = speed * 1.00001;
+        speed = speed * 1.001;
+        if(speed > 8.0){
+            speed = 8.0;
+        }
         if (IsKeyPressed(KEY_SPACE))
         {
             bird.jump();
@@ -35,8 +38,7 @@ int main()
         BeginDrawing();
         ClearBackground(RAYWHITE);
         //pipe.update();
-        level.draw();
-        level.move(speed);
+        level.update(speed);
         DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, BLUE);
         EndDrawing();
     }

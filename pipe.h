@@ -6,7 +6,7 @@ class Pipe{
     private:
         int gap;
         int topHeight;
-        int x;
+        double x;
     public:
         Pipe();
         Pipe(int x);
@@ -15,9 +15,9 @@ class Pipe{
         void setGap(int newGap);
         void drawPipe();
         void topHeightCalc();
-        void movePipe(int distance);
-        void reset();
+        void movePipe(double distance);
+        void reset(int newX);
         void update();
-        int getX();
+        double getX();
         
 };
