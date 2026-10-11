@@ -20,10 +20,14 @@ private:
     };
     GAMESTATE gamestate;
     Texture2D birdTexture;
+    Texture2D backGroundTexture;
+    Texture2D pipeBodyTexture;
+    Texture2D pipeCapTexture;
 public:
     Game();
     void update();
     void draw();
+    void drawBackGround();
     ~Game();
     
 };

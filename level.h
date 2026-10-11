@@ -1,5 +1,6 @@
 #pragma once
 #include "pipe.h"
+#include "raylib.h"
 
 const int NUMBER_OF_PIPES = 6;
 const int DISTANCE_BETWEEN_PIPES = 250;
@@ -10,7 +11,7 @@ class Level{
         int score = 0;
     public:
         Level();
-        void draw();
+        void draw(bool useSprites, Texture2D pipeCapTexture, Texture2D pipeBodyTexture);
         void move(double distance);
         void update(double speed);
         bool checkCollision(double birdX, double birdY, int birdSize);

@@ -29,10 +29,14 @@ void Pipe::setGap(int newGap)
 {
     gap = newGap;
 }
-void Pipe::drawPipe()
+void Pipe::drawPipe(bool useSprites, Texture2D pipeCapTexture, Texture2D pipeBodyTexture)
 {
-    DrawRectangle(x, 0, PIPE_WIDTH, topHeight, BLUE);
-    DrawRectangle(x, topHeight + gap, PIPE_WIDTH, GetScreenHeight() - (topHeight + gap), BLUE);
+    if(!useSprites){
+        DrawRectangle(x, 0, PIPE_WIDTH, topHeight, BLUE);
+        DrawRectangle(x, topHeight + gap, PIPE_WIDTH, GetScreenHeight() - (topHeight + gap), BLUE);
+    }else{
+        
+    }
 }
 void Pipe::topHeightCalc()
 {
@@ -48,11 +52,6 @@ void Pipe::reset(int newX)
     topHeightCalc();
     passed = false;
     x = newX;
-}
-void Pipe::update()
-{
-    drawPipe();
-    // movePipe();
 }
 double Pipe::getX()
 {

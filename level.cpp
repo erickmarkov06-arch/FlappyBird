@@ -10,9 +10,9 @@ Level::Level(){
         pipes[i] = Pipe(distance[i - 1] + PIPE_WIDTH + pipes[i - 1].getX());
     }
 }
-void Level::draw(){
+void Level::draw(bool useSprites, Texture2D pipeCapTexture, Texture2D pipeBodyTexture){
     for(int i = 0; i < NUMBER_OF_PIPES; i ++){
-        pipes[i].drawPipe();
+        pipes[i].drawPipe(useSprites, pipeCapTexture, pipeBodyTexture);
     }
 }
 void Level::move(double distance){
