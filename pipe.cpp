@@ -3,44 +3,66 @@
 #include <ctime>
 #include <cstdlib>
 
-Pipe::Pipe(){
+Pipe::Pipe()
+{
     randomGap();
     topHeightCalc();
     x = GetScreenWidth() - 50;
 }
-Pipe::Pipe(int x){
+Pipe::Pipe(int x)
+{
     this->x = x;
     randomGap();
     topHeightCalc();
 }
-void Pipe::randomGap(){
+void Pipe::randomGap()
+{
     gap = rand() % (200 - 100 + 1) + 100;
 }
-int Pipe::getGap(){
+int Pipe::getGap()
+{
     return gap;
 }
-void Pipe::setGap(int newGap){
+void Pipe::setGap(int newGap)
+{
     gap = newGap;
 }
-void Pipe::drawPipe(){
-    DrawRectangle(x, 0, PIPE_WIDTH, topHeight, BLUE );
-    DrawRectangle(x, topHeight + gap, PIPE_WIDTH, GetScreenHeight() - (topHeight + gap), BLUE );
+void Pipe::drawPipe()
+{
+    DrawRectangle(x, 0, PIPE_WIDTH, topHeight, BLUE);
+    DrawRectangle(x, topHeight + gap, PIPE_WIDTH, GetScreenHeight() - (topHeight + gap), BLUE);
 }
-void Pipe::topHeightCalc(){
+void Pipe::topHeightCalc()
+{
     topHeight = rand() % (((GetScreenHeight() - 100) - gap) + 1) + 50;
 }
-void Pipe::movePipe(double distance){
+void Pipe::movePipe(double distance)
+{
     x = x - distance;
 }
-void Pipe::reset(int newX){
+void Pipe::reset(int newX)
+{
     randomGap();
     topHeightCalc();
     x = newX;
 }
-void Pipe::update(){
+void Pipe::update()
+{
     drawPipe();
-   // movePipe();
+    // movePipe();
 }
-double Pipe::getX(){
+double Pipe::getX()
+{
     return x;
+}
+bool Pipe::hits(double birdX, double birdY, int birdSize)
+{
+
+    if ((birdX + birdSize > getX() && birdX < (getX() + PIPE_WIDTH)) &&
+        (birdY < topHeight  || birdY + birdSize > topHeight + gap))
+    {
+        return true;
+    }
+
+    return false;
 }

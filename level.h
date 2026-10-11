@@ -13,4 +13,6 @@ class Level{
         void draw();
         void move(double distance);
         void update(double speed);
+        bool checkCollision(double birdX, double birdY, int birdSize);
+        void reset();
 };

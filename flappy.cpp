@@ -7,6 +7,12 @@
 #include "level.h"
 
 const double gravity = 0.5;
+enum GAMESTATE
+{
+    NOT_STARTED,
+    PLAYING,
+    GAME_OVER
+};
 
 int main()
 {
@@ -15,32 +21,71 @@ int main()
     const int screenWidth = 800;
     InitWindow(screenWidth, screenHight, "FirstWindow");
     Bird bird = Bird(200, 200, 0);
-    Pipe pipe = Pipe();
     Level level = Level();
     double speed = 3;
-
-    int gap = pipe.getGap();
+    bool collison = false;
+    GAMESTATE gamestate = NOT_STARTED;
 
     SetTargetFPS(60);
 
     while (!WindowShouldClose())
     {
-        speed = speed * 1.001;
-        if(speed > 8.0){
-            speed = 8.0;
-        }
-        if (IsKeyPressed(KEY_SPACE))
+        if (gamestate == NOT_STARTED)
         {
-            bird.jump();
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+            DrawText("PRESS SPACE TO START!", 75, 200, 50, BLUE);
+            if (IsKeyPressed(KEY_SPACE))
+            {
+                gamestate = PLAYING;
+            }
+            EndDrawing();
         }
-        // bird.move(0, 2);
-        bird.update(gravity);
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        //pipe.update();
-        level.update(speed);
-        DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, BLUE);
-        EndDrawing();
+        if (gamestate == PLAYING)
+        {
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+            speed = speed * 1.001;
+            if (speed > 8.0)
+            {
+                speed = 8.0;
+            }
+            if (IsKeyPressed(KEY_SPACE))
+            {
+                bird.jump();
+            }
+            // bird.move(0, 2);
+            collison = level.checkCollision(bird.getX(), bird.getY(), BIRD_SIZE);
+            bird.update(gravity);
+            level.draw();
+            level.update(speed);
+
+            DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, GREEN);
+            EndDrawing();
+
+            if (collison || IsKeyPressed(KEY_R))
+            {
+                gamestate = GAME_OVER;
+            }
+        }
+        if (gamestate == GAME_OVER)
+        {
+            BeginDrawing();
+            ClearBackground(RAYWHITE);
+            DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, GREEN);
+            level.draw();
+            DrawText("GAME OVER!\nR TO RESET", 225, 225, 40, BLACK);
+
+            EndDrawing();
+            if (IsKeyPressed(KEY_R))
+            {
+                bird = Bird(200, 200, 0);
+                level = Level();
+                speed = 3;
+                collison = false;
+                gamestate = NOT_STARTED;
+            }
+        }
     }
 
     CloseWindow();

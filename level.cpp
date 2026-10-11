@@ -21,9 +21,8 @@ void Level::move(double distance){
     }
 }
 void Level::update(double speed){
-        draw();
         move(speed);
-        int highestX = pipes[0].getX();
+        double highestX = pipes[0].getX();
         for(int i = 1; i < NUMBER_OF_PIPES ; i ++){
             if(pipes[i].getX() > highestX){
                 highestX = pipes[i].getX();
@@ -36,4 +35,17 @@ void Level::update(double speed){
             }
         }
         
+}
+bool Level::checkCollision(double birdX, double birdY, int birdSize){
+    bool collision = false;
+    for(int i = 0; i < NUMBER_OF_PIPES; i++){
+        collision = pipes[i].hits(birdX, birdY, birdSize);
+        if(collision == true){
+            return true;
+        }
+    }
+    return collision;
+}
+void Level::reset(){
+    
 }

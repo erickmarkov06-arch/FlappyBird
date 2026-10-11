@@ -19,5 +19,5 @@ class Pipe{
         void reset(int newX);
         void update();
         double getX();
-        
+        bool hits(double birdX, double birdY, int birdSize);
 };
