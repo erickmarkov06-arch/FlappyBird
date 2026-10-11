@@ -22,6 +22,9 @@ void frame()
 int main()
 {
     srand(time(NULL));
+    {
+
+    
     InitWindow(screenWidth, screenHight, "FirstWindow");
     Game game;
     gamePtr = &game;
@@ -37,8 +40,7 @@ int main()
         frame();
     }
 #endif
-
+    }
     CloseWindow();
-
     return 0;
 }

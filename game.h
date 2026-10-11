@@ -1,6 +1,7 @@
 #pragma once
 #include "bird.h"
 #include "level.h"
+#include "raylib.h"
 
 class Game
 {
@@ -10,6 +11,7 @@ private:
     int score;
     Bird bird;
     Level level;
+    bool useSprites;
     enum GAMESTATE
     {
         NOT_STARTED,
@@ -17,8 +19,11 @@ private:
         GAME_OVER
     };
     GAMESTATE gamestate;
+    Texture2D birdTexture;
 public:
     Game();
     void update();
     void draw();
+    ~Game();
+    
 };

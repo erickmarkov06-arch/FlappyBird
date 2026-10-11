@@ -10,8 +10,10 @@ Game::Game() : bird(200, 200, 0)
     score = 0;
     collision = false;
     level = Level();
-    
-    
+    useSprites = true;
+    birdTexture = LoadTexture("assets/bird.png");
+
+
 }
 void Game::update()
 {
@@ -20,6 +22,9 @@ void Game::update()
         if (IsKeyPressed(KEY_SPACE))
         {
             gamestate = PLAYING;
+        }
+        if (IsKeyPressed(KEY_T)){
+            useSprites = !useSprites;
         }
     }
     else if (gamestate == PLAYING)
@@ -64,12 +69,17 @@ void Game::draw()
     if (gamestate == NOT_STARTED)
     {
         ClearBackground(RAYWHITE);
-        DrawText("PRESS SPACE TO START", 100, 200, 50, BLACK);
+        DrawText("PRESS SPACE TO START\nT TO TOGGLE SPRITES", 100, 200, 50, BLACK);
+        if(useSprites == true){
+            DrawText("SPRITES ON",100, 300, 50, BLACK );
+        }else{
+            DrawText("SPRITES OFF",100, 300, 50, BLACK );
+        }
     }
     if (gamestate == PLAYING)
     {
         ClearBackground(RAYWHITE);
-        DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, GREEN);
+        bird.drawBird(useSprites, birdTexture);
         level.draw();
         DrawText(TextFormat("Score: %d", score), 10, 10, 20, BLACK);
     }
@@ -77,8 +87,9 @@ void Game::draw()
     {
         ClearBackground(RAYWHITE);
         level.draw();
-        DrawRectangle(bird.getX(), bird.getY(), BIRD_SIZE, BIRD_SIZE, GREEN);
+        bird.drawBird(useSprites, birdTexture);
         DrawText(TextFormat("GAME OVER!\n\nYOUR SCORE: %d \n\n\n\nR TO RESET", score), 200, 50, 50, BLACK);
     }
     EndDrawing();
 }
+Game::~Game() {UnloadTexture(birdTexture); }

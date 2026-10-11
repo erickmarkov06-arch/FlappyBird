@@ -1,4 +1,5 @@
 #pragma once
+#include "raylib.h"
 
 const int BIRD_SIZE = 20;
 
@@ -17,4 +18,5 @@ class Bird{
         void setY(double newY);
         void move(double moveX, double moveY);
         void update(double gravity);
+        void drawBird(bool sprites, Texture2D texture);
 };

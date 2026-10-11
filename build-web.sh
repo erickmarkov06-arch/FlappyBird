@@ -9,7 +9,7 @@ RAYLIB=~/raylib-web/src
 
 mkdir -p docs
 
-# Add  --preload-file assets  here once the assets/ folder has sprites in it
+# --preload-file bundles the assets/ folder into the build so LoadTexture("assets/...") works in the browser
 emcc *.cpp -o docs/index.html \
     -Os -Wall \
     -I"$RAYLIB" \
@@ -17,7 +17,8 @@ emcc *.cpp -o docs/index.html \
     -DPLATFORM_WEB \
     -s USE_GLFW=3 \
     -s ASYNCIFY \
-    -s TOTAL_MEMORY=67108864
+    -s TOTAL_MEMORY=67108864 \
+    --preload-file assets
 
 echo "Built docs/index.html"
 echo "Test it with:  cd docs && python3 -m http.server 8080   then open http://localhost:8080"

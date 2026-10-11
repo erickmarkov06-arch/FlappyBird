@@ -38,3 +38,10 @@ void Bird::update(double gravity){
 void Bird::setV(double newV){
     velocity = newV;
 }
+void Bird::drawBird(bool sprites, Texture2D texture){
+    if(sprites){
+        DrawTexture(texture, getX(), getY(), WHITE);
+    }else{
+        DrawRectangle(getX(), getY(), BIRD_SIZE,BIRD_SIZE, YELLOW);
+    }
+}
