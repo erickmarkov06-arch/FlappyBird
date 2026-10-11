@@ -1,0 +1,30 @@
+# Ignore everything by default (this covers Linux binaries, which have no extension)...
+*
+
+# ...except folders, so git can look inside them
+!*/
+
+# ...and except the files we actually want to track
+!.gitignore
+!*.cpp
+!*.h
+!*.hpp
+!*.json
+!*.md
+!*.txt
+!*.sh
+
+# ...and game assets: images, sounds and fonts
+!*.png
+!*.jpg
+!*.jpeg
+!*.wav
+!*.ogg
+!*.mp3
+!*.ttf
+
+# ...and the web build that GitHub Pages serves (docs/ folder)
+!*.html
+!*.js
+!*.wasm
+!*.data
