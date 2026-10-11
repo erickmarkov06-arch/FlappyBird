@@ -8,12 +8,14 @@ Pipe::Pipe()
     randomGap();
     topHeightCalc();
     x = GetScreenWidth() - 50;
+    passed = false;
 }
 Pipe::Pipe(int x)
 {
     this->x = x;
     randomGap();
     topHeightCalc();
+    passed = false;
 }
 void Pipe::randomGap()
 {
@@ -44,6 +46,7 @@ void Pipe::reset(int newX)
 {
     randomGap();
     topHeightCalc();
+    passed = false;
     x = newX;
 }
 void Pipe::update()
@@ -65,4 +68,10 @@ bool Pipe::hits(double birdX, double birdY, int birdSize)
     }
 
     return false;
+}
+bool Pipe::isPassed(){
+    return passed;
+}
+void Pipe::markPassed(){
+    passed = true;
 }

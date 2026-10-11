@@ -2,7 +2,7 @@
 #include "pipe.h"
 
 const int NUMBER_OF_PIPES = 6;
-const int DISTANCE_BETWEEN_PIPES = 150;
+const int DISTANCE_BETWEEN_PIPES = 250;
 class Level{
     private:
         Pipe pipes[NUMBER_OF_PIPES];
@@ -15,4 +15,5 @@ class Level{
         void update(double speed);
         bool checkCollision(double birdX, double birdY, int birdSize);
         void reset();
+        int checkIfPassed(double birdX);
 };

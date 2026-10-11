@@ -49,3 +49,13 @@ bool Level::checkCollision(double birdX, double birdY, int birdSize){
 void Level::reset(){
     
 }
+int Level::checkIfPassed(double birdX){
+    for(int i = 0; i < NUMBER_OF_PIPES; i ++ ){
+        if((birdX > pipes[i].getX() + PIPE_WIDTH) &&
+        (!pipes[i].isPassed())){
+            pipes[i].markPassed();
+            score +=1;
+        }
+    }
+    return score;
+}

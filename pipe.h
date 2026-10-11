@@ -6,6 +6,7 @@ class Pipe{
     private:
         int gap;
         int topHeight;
+        bool passed;
         double x;
     public:
         Pipe();
@@ -20,4 +21,6 @@ class Pipe{
         void update();
         double getX();
         bool hits(double birdX, double birdY, int birdSize);
+        bool isPassed();
+        void markPassed();
 };
