@@ -23,6 +23,7 @@ private:
     Texture2D backGroundTexture;
     Texture2D pipeBodyTexture;
     Texture2D pipeCapTexture;
+    double backgroundX[2];
 public:
     Game();
     void update();

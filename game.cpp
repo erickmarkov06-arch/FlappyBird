@@ -15,8 +15,8 @@ Game::Game() : bird(200, 200, 0)
     backGroundTexture = LoadTexture("assets/background.png");
     pipeBodyTexture = LoadTexture("assets/pipe_body.png");
     pipeCapTexture = LoadTexture("assets/pipe_cap.png");
-
-
+    backgroundX[0] = 0;
+    backgroundX[1] = backGroundTexture.width;
 }
 void Game::update()
 {
@@ -26,7 +26,8 @@ void Game::update()
         {
             gamestate = PLAYING;
         }
-        if (IsKeyPressed(KEY_T)){
+        if (IsKeyPressed(KEY_T))
+        {
             useSprites = !useSprites;
         }
     }
@@ -43,6 +44,14 @@ void Game::update()
         if (IsKeyPressed(KEY_SPACE))
         {
             bird.jump();
+        }
+        for(int i = 0; i < 2; i++){
+            backgroundX[i] = backgroundX[i] - speed * 0.3;
+        }
+        for(int i = 0; i < 2; i++){
+            if(backgroundX[i] + backGroundTexture.width < 0){
+                backgroundX[i] = backgroundX[1 -i] + backGroundTexture.width;
+            }
         }
         score = level.checkIfPassed(bird.getX());
         collision = level.checkCollision(bird.getX(), bird.getY(), BIRD_SIZE);
@@ -73,16 +82,19 @@ void Game::draw()
     {
         drawBackGround();
         DrawText("PRESS SPACE TO START\nT TO TOGGLE SPRITES", 100, 200, 50, BLACK);
-        if(useSprites == true){
-            DrawText("SPRITES ON",100, 300, 50, BLACK );
-        }else{
-            DrawText("SPRITES OFF",100, 300, 50, BLACK );
+        if (useSprites == true)
+        {
+            DrawText("SPRITES ON", 100, 300, 50, BLACK);
+        }
+        else
+        {
+            DrawText("SPRITES OFF", 100, 300, 50, BLACK);
         }
     }
     if (gamestate == PLAYING)
     {
         drawBackGround();
-        level.draw(useSprites,  pipeCapTexture, pipeBodyTexture);
+        level.draw(useSprites, pipeCapTexture, pipeBodyTexture);
         bird.drawBird(useSprites, birdTexture);
         DrawText(TextFormat("Score: %d", score), 10, 10, 20, BLACK);
     }
@@ -95,11 +107,24 @@ void Game::draw()
     }
     EndDrawing();
 }
-void Game::drawBackGround(){
-    if(useSprites){
-        DrawTexture(backGroundTexture, 0, 0, WHITE);
-    }else{
+void Game::drawBackGround()
+{
+    if (useSprites)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            DrawTexture(backGroundTexture, backgroundX[i], 0, WHITE);
+        }
+    }
+    else
+    {
         ClearBackground(RAYWHITE);
     }
 }
-Game::~Game() {UnloadTexture(birdTexture); UnloadTexture(backGroundTexture);UnloadTexture(pipeBodyTexture);UnloadTexture(pipeCapTexture);}
+Game::~Game()
+{
+    UnloadTexture(birdTexture);
+    UnloadTexture(backGroundTexture);
+    UnloadTexture(pipeBodyTexture);
+    UnloadTexture(pipeCapTexture);
+}
